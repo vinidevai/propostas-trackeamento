@@ -160,13 +160,37 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
   font-size:12px;font-weight:700;color:#fff;}
 .bfill.bad{background:rgba(239,68,68,.65);}
 .bfill.good{background:linear-gradient(90deg,#15803d,#22c55e);}
-.metrics{display:flex;gap:14px;margin-top:6px;}
-.met{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:12px;padding:18px;text-align:center;}
-.met-v{font-size:34px;font-weight:800;color:var(--green-br);line-height:1;}
-.met-v.neg{color:#f87171;}
-.met-l{font-size:12px;color:rgba(255,255,255,.45);margin-top:5px;}
-.met-s{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;}
+.emq-card{background:rgba(255,255,255,.05);border-radius:14px;padding:18px 22px;
+  border:1px solid rgba(34,197,94,.2);}
+.emq-guaranteed{display:inline-block;font-size:9px;font-weight:700;
+  background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);
+  border-radius:4px;padding:2px 8px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;}
+.emq-head-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px;}
+.emq-head-sub{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.emq-compare{display:flex;align-items:stretch;gap:10px;}
+.emq-col{flex:1;background:rgba(255,255,255,.04);border-radius:10px;padding:13px 15px;}
+.emq-col.before{border:1px solid rgba(239,68,68,.2);}
+.emq-col.after{border:1px solid rgba(34,197,94,.25);}
+.emq-col-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;}
+.emq-bars{display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
+.emq-bar{height:8px;border-radius:4px;}
+.emq-bar.filled.red-bar{background:#ef4444;}
+.emq-bar.filled.green-bar{background:#22c55e;}
+.emq-bar.empty{background:rgba(255,255,255,.08);}
+.emq-quality-label{font-size:17px;font-weight:800;}
+.emq-quality-label.low{color:#ef4444;}
+.emq-quality-label.high{color:#22c55e;}
+.emq-quality-desc{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;line-height:1.4;}
+.emq-arrow-col{display:flex;align-items:center;font-size:22px;color:rgba(255,255,255,.2);
+  flex-shrink:0;}
+.trend-row{display:flex;gap:12px;}
+.trend-card{flex:1;background:rgba(255,255,255,.04);border-radius:12px;padding:13px 15px;}
+.trend-title{font-size:12px;font-weight:700;color:rgba(255,255,255,.75);}
+.trend-hint{font-size:10px;color:rgba(255,255,255,.28);margin-top:1px;margin-bottom:6px;}
+.trend-svg{width:100%;height:44px;display:block;overflow:visible;}
+.trend-note{font-size:10px;color:rgba(255,255,255,.28);margin-top:5px;line-height:1.3;
+  font-style:italic;}
 
 /* ════════════════════════════════════════
    SLIDE 4 — OPÇÃO A
@@ -252,9 +276,9 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <p class="s0-desc">Implementação de infraestrutura de Server-Side Tracking para maximizar a inteligência das suas campanhas e reduzir o custo por aquisição.</p>
     <div class="divider"></div>
     <div class="stats">
-      <div><div class="stat-n">+95%</div><div class="stat-l">Match Rate</div></div>
-      <div><div class="stat-n">-30%</div><div class="stat-l">no CPA médio</div></div>
-      <div><div class="stat-n">+50%</div><div class="stat-l">no ROAS</div></div>
+      <div><div class="stat-n" style="font-size:30px">↑ Qualidade</div><div class="stat-l">dos dados captados</div></div>
+      <div><div class="stat-n" style="font-size:30px">↓ CPA</div><div class="stat-l">tendência de redução</div></div>
+      <div><div class="stat-n" style="font-size:30px">↑ ROAS</div><div class="stat-l">tendência de crescimento</div></div>
     </div>
   </div>
 </div>
@@ -294,8 +318,8 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 
       <!-- LEFT FUNNEL (bad) -->
       <path d="M30 30 L200 30 L165 115 L65 115 Z" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
-      <text x="115" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b">100 eventos</text>
-      <text x="115" y="78" text-anchor="middle" font-size="12" fill="#7f1d1d">na sua loja</text>
+      <text x="115" y="58" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">Seus eventos</text>
+      <text x="115" y="75" text-anchor="middle" font-size="11" fill="#7f1d1d">no site / loja</text>
       <!-- leak icons -->
       <circle cx="48" cy="80" r="16" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
       <text x="48" y="86" text-anchor="middle" font-size="15">🚫</text>
@@ -303,39 +327,39 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
       <text x="178" y="101" text-anchor="middle" font-size="15">📱</text>
       <!-- narrow part (loss) -->
       <path d="M65 115 L165 115 L140 195 L90 195 Z" fill="#fecaca" stroke="#fca5a5" stroke-width="1.5"/>
-      <text x="115" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">-40%</text>
-      <text x="115" y="175" text-anchor="middle" font-size="11" fill="#991b1b">perdido</text>
+      <text x="115" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">dados</text>
+      <text x="115" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#dc2626">perdidos</text>
       <!-- output box bad -->
-      <rect x="60" y="203" width="110" height="48" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
-      <text x="115" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">Apenas 60 eventos</text>
-      <text x="115" y="238" text-anchor="middle" font-size="11" fill="#991b1b">chegam à plataforma</text>
+      <rect x="55" y="203" width="120" height="48" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="115" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">Menos dados</text>
+      <text x="115" y="238" text-anchor="middle" font-size="11" fill="#991b1b">chegam às plataformas</text>
       <!-- result bad -->
       <text x="115" y="278" text-anchor="middle" font-size="22">😕</text>
       <text x="115" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">Algoritmo desorientado</text>
 
       <!-- RIGHT FUNNEL (good) -->
       <path d="M300 30 L470 30 L435 115 L335 115 Z" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
-      <text x="385" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">100 eventos</text>
-      <text x="385" y="78" text-anchor="middle" font-size="12" fill="#14532d">na sua loja</text>
+      <text x="385" y="58" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">Seus eventos</text>
+      <text x="385" y="75" text-anchor="middle" font-size="11" fill="#14532d">no site / loja</text>
       <!-- server badge -->
       <rect x="345" y="80" width="80" height="24" rx="6" fill="#1e3a8a"/>
       <text x="385" y="96" text-anchor="middle" font-size="11" fill="white" font-weight="700">🖥 Server</text>
       <!-- full funnel -->
       <path d="M335 115 L435 115 L415 195 L355 195 Z" fill="#bbf7d0" stroke="#86efac" stroke-width="1.5"/>
-      <text x="385" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">+35%</text>
-      <text x="385" y="175" text-anchor="middle" font-size="11" fill="#14532d">recuperado</text>
+      <text x="385" y="155" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">maior</text>
+      <text x="385" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">cobertura</text>
       <!-- output box good -->
-      <rect x="330" y="203" width="110" height="48" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
-      <text x="385" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">~95 eventos</text>
+      <rect x="325" y="203" width="120" height="48" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <text x="385" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">Mais dados captados</text>
       <text x="385" y="238" text-anchor="middle" font-size="11" fill="#15803d">chegam ao destino</text>
       <!-- result good -->
       <text x="385" y="278" text-anchor="middle" font-size="22">🚀</text>
       <text x="385" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">Algoritmo otimizado</text>
     </svg>
     <div class="impact">
-      <div class="impact-v">-40%</div>
-      <div class="impact-l">dos seus dados nunca chegam à plataforma</div>
-      <div class="impact-s">Resultado: CPA inflado e campanhas sub-otimizadas</div>
+      <div class="impact-v" style="font-size:40px;line-height:1.1">⚠️</div>
+      <div class="impact-l" style="font-size:15px;font-weight:700;color:#dc2626">Grande parte dos seus dados nunca chega à plataforma</div>
+      <div class="impact-s">Resultado: algoritmo desorientado, CPA inflado e campanhas sub-otimizadas</div>
     </div>
   </div>
 </div>
@@ -445,38 +469,81 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     </div>
   </div>
   <div class="s3-right">
-    <div class="chart-section-t">Comparativo: Antes × Depois do Server-Side Tracking</div>
+    <div class="chart-section-t">O que muda com Server-Side Tracking</div>
 
-    <div class="crow">
-      <div class="clabel"><span class="clabel-t">Match Rate — Qualidade dos Dados</span><span class="clabel-s">eventos identificados ✓</span></div>
-      <div class="cbars">
-        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:55%">55%</div></div></div>
-        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:95%">95%</div></div></div>
+    <!-- Guaranteed: Event Match Quality -->
+    <div class="emq-card">
+      <div class="emq-guaranteed">✓ Resultado verificável</div>
+      <div class="emq-head-title">Qualidade da Correspondência de Eventos (Event Match Quality)</div>
+      <div class="emq-head-sub">Indicador visível diretamente no Gerenciador de Anúncios do Meta</div>
+      <div class="emq-compare">
+        <div class="emq-col before">
+          <div class="emq-col-label">Antes</div>
+          <div class="emq-bars">
+            <div class="emq-bar filled red-bar"></div>
+            <div class="emq-bar empty"></div>
+            <div class="emq-bar empty"></div>
+          </div>
+          <div class="emq-quality-label low">Baixa</div>
+          <div class="emq-quality-desc">Pixel via browser — dados incompletos, sujeito a bloqueios e restrições</div>
+        </div>
+        <div class="emq-arrow-col">→</div>
+        <div class="emq-col after">
+          <div class="emq-col-label">Depois</div>
+          <div class="emq-bars">
+            <div class="emq-bar filled green-bar"></div>
+            <div class="emq-bar filled green-bar"></div>
+            <div class="emq-bar filled green-bar"></div>
+          </div>
+          <div class="emq-quality-label high">Alta</div>
+          <div class="emq-quality-desc">Dados enriquecidos via servidor — maior cobertura e precisão de correspondência</div>
+        </div>
       </div>
     </div>
 
-    <div class="crow">
-      <div class="clabel"><span class="clabel-t">Custo por Aquisição (CPA)</span><span class="clabel-s">quanto menor, melhor ↓</span></div>
-      <div class="cbars">
-        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:100%">R$ 120</div></div></div>
-        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:67%">R$ 80</div></div></div>
+    <!-- Illustrative trends -->
+    <div class="trend-row">
+      <div class="trend-card">
+        <div class="trend-title">Custo por Aquisição (CPA) <span style="color:#4ade80;font-weight:400">↓</span></div>
+        <div class="trend-hint">Tendência ilustrativa — varia por negócio e estratégia</div>
+        <svg class="trend-svg" viewBox="0 0 200 44" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="gcpa" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#22c55e" stop-opacity=".18"/>
+              <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,38 C40,36 80,28 120,18 C155,10 178,7 200,4 L200,44 L0,44 Z" fill="url(#gcpa)"/>
+          <path d="M0,38 C40,36 80,28 120,18 C155,10 178,7 200,4" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="0" cy="38" r="3.5" fill="rgba(239,68,68,.7)"/>
+          <circle cx="200" cy="4" r="3.5" fill="#22c55e"/>
+          <text x="4" y="34" font-size="8" fill="rgba(255,255,255,.35)">Antes</text>
+          <text x="164" y="14" font-size="8" fill="#4ade80">Depois</text>
+        </svg>
+        <div class="trend-note">Algoritmo alimentado com dados melhores tende a gastar menos para converter</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-title">ROAS <span style="color:#4ade80;font-weight:400">↑</span></div>
+        <div class="trend-hint">Tendência ilustrativa — varia por negócio e estratégia</div>
+        <svg class="trend-svg" viewBox="0 0 200 44" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="groas" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#22c55e" stop-opacity=".18"/>
+              <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,40 C40,38 80,30 120,20 C155,12 178,8 200,5 L200,44 L0,44 Z" fill="url(#groas)"/>
+          <path d="M0,40 C40,38 80,30 120,20 C155,12 178,8 200,5" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="0" cy="40" r="3.5" fill="rgba(239,68,68,.7)"/>
+          <circle cx="200" cy="5" r="3.5" fill="#22c55e"/>
+          <text x="4" y="36" font-size="8" fill="rgba(255,255,255,.35)">Antes</text>
+          <text x="164" y="16" font-size="8" fill="#4ade80">Depois</text>
+        </svg>
+        <div class="trend-note">Atribuição mais completa permite otimização mais precisa dos gastos</div>
       </div>
     </div>
 
-    <div class="crow">
-      <div class="clabel"><span class="clabel-t">ROAS — Retorno sobre o Investimento</span><span class="clabel-s">quanto maior, melhor ↑</span></div>
-      <div class="cbars">
-        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:50%">3×</div></div></div>
-        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:83%">5×</div></div></div>
-      </div>
-    </div>
-
-    <div class="metrics">
-      <div class="met"><div class="met-v">+40pp</div><div class="met-l">Match Rate</div><div class="met-s">55% → 95%</div></div>
-      <div class="met"><div class="met-v neg">-33%</div><div class="met-l">Custo por Aquisição</div><div class="met-s">Economia real de verba</div></div>
-      <div class="met"><div class="met-v">+67%</div><div class="met-l">ROAS</div><div class="met-s">3× → 5× de retorno</div></div>
-    </div>
-    <div class="chart-note">*Números representativos de resultados típicos em implementações de Server-Side Tracking</div>
+    <div class="chart-note">Impactos em CPA e ROAS são tendências ilustrativas e variam conforme negócio, verba e estratégia. O ganho direto e verificável é na Qualidade da Correspondência de Eventos.</div>
   </div>
 </div>
 
