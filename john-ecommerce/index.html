@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial - Arquitetura de Dados e Trackeamento Avançado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            animation: fadeIn 0.5s ease-in;
+            overflow-y: auto;
+            background: white;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Slide 1 - Intro */
+        .slide-intro {
+            background: linear-gradient(135deg, #0d2a5c 0%, #1a3a7a 100%);
+            color: white;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+
+        .intro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .photo-container {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .intro-text h1 {
+            font-size: 2.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-text p {
+            font-size: 1.4em;
+            font-weight: 300;
+            margin-bottom: 8px;
+            opacity: 0.95;
+        }
+
+        .intro-text .subtitle {
+            font-size: 1.1em;
+            opacity: 0.85;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        /* Standard Slides */
+        .slide {
+            color: #1a1a1a;
+        }
+
+        .slide h1 {
+            color: #0d2a5c;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            border-bottom: 4px solid #0d2a5c;
+            padding-bottom: 20px;
+        }
+
+        .slide h2 {
+            color: #0d2a5c;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .slide-content {
+            font-size: 1.2em;
+            line-height: 1.8;
+            max-width: 1000px;
+        }
+
+        .slide-content p {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .highlight-green {
+            color: #22a34d;
+            font-weight: 600;
+        }
+
+        .highlight-blue {
+            color: #0d2a5c;
+            font-weight: 600;
+        }
+
+        /* Bullet points */
+        .bullet-list {
+            margin: 20px 0 20px 40px;
+            list-style: none;
+        }
+
+        .bullet-list li {
+            margin-bottom: 18px;
+            padding-left: 30px;
+            position: relative;
+            color: #333;
+        }
+
+        .bullet-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0d2a5c;
+            font-size: 1.5em;
+        }
+
+        .bullet-list li strong {
+            color: #0d2a5c;
+        }
+
+        /* Slide 4 - Table */
+        .investment-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            font-size: 1.05em;
+        }
+
+        .investment-table thead {
+            background: #0d2a5c;
+            color: white;
+        }
+
+        .investment-table th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .investment-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .investment-table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .investment-table tbody tr:hover {
+            background: #f0f5ff;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #0d2a5c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(13, 42, 92, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #1a3a7a;
+            transform: scale(1.1);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            color: #0d2a5c;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            font-size: 0.9em;
+            color: #666;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+
+            .slide h1 {
+                font-size: 2em;
+            }
+
+            .slide-content {
+                font-size: 1em;
+            }
+
+            .photo-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .intro-text h1 {
+                font-size: 1.8em;
+            }
+
+            .intro-text p {
+                font-size: 1.1em;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-buttons, .slide-counter, .keyboard-hint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard-hint">Use ← → ou clique para navegar</div>
+
+    <div class="presentation">
+        <!-- Slide 0: Introdução -->
+        <div class="slide slide-intro active">
+            <div class="intro-content">
+                <div class="photo-container">
+                    <img src="https://github.com/vinidevai.png" alt="Vinicius Sousa">
+                </div>
+                <div class="intro-text">
+                    <h1>Vinicius Sousa</h1>
+                    <p>Desenvolvedor de Trackeamento</p>
+                    <p>Gestor de Tráfego</p>
+                    <div class="subtitle">
+                        Implementando trackeamento avançado para empresas nos <strong>Estados Unidos</strong> e no <strong>Brasil</strong> desde 2023.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 1: O Cenário Atual -->
+        <div class="slide">
+            <h1>O Cenário Atual e o Problema Oculto</h1>
+            <div class="slide-content">
+                <p>Atualmente, fatores como bloqueadores de anúncios (AdBlockers), restrições de privacidade (como iOS 14+) e o bloqueio de cookies de terceiros fazem com que as plataformas de tráfego fiquem "cegas".</p>
+
+                <p>Quando um cliente acessa sua loja, adiciona um produto ao carrinho ou até mesmo finaliza uma compra, <strong>parte significativa desses dados se perde antes de chegar ao Meta ou Google Ads</strong>.</p>
+
+                <p><strong>O impacto direto:</strong> perda de inteligência da campanha. Os algoritmos não conseguem identificar o perfil exato do seu comprador, tornando o <span class="highlight-green">Custo por Aquisição (CPA) mais alto</span> do que deveria ser.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: A Solução Técnica -->
+        <div class="slide">
+            <h1>A Solução Técnica (Server-Side Tracking)</h1>
+            <div class="slide-content">
+                <p>A solução não é apenas instalar um "pixel", mas <strong>construir uma infraestrutura de dados robusta e independente</strong> para rotear eventos exatos (Page View, Add to Cart, Initiate Checkout, Purchase) para Meta, Google Ads e GA4.</p>
+
+                <p>O projeto consiste em:</p>
+
+                <ul class="bullet-list">
+                    <li><strong>Google Tag Manager (Web e Server):</strong> Captura e processamento duplo para garantir que nenhuma ação seja perdida.</li>
+                    <li><strong>Banco de Dados Supabase:</strong> Armazenamento de dados do usuário com persistência de 30 dias. Isso permite cruzar as ações ao longo do funil e garantir a correspondência exata do evento com o cliente correto.</li>
+                    <li><strong>Servidor Stape (Plano Pro):</strong> Ambiente isolado para processamento dos dados. <em>A contratação desta ferramenta será feita pelo cliente, com todo o meu auxílio e direcionamento técnico durante o setup.</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: O Valor e os Benefícios -->
+        <div class="slide">
+            <h1>O Valor e os Benefícios a Longo Prazo</h1>
+            <div class="slide-content">
+                <p>Este é um investimento em inteligência comercial e infraestrutura digital que acompanha o negócio indefinidamente.</p>
+
+                <ul class="bullet-list">
+                    <li><strong>Alimentação do Algoritmo:</strong> Ao enviar dados precisos e enriquecidos de volta para as plataformas de tráfego, aumentamos a inteligência das campanhas. Isso reflete em um <span class="highlight-green">CPA mais baixo</span> e um <span class="highlight-green">ROAS maior</span>.</li>
+
+                    <li><strong>Ativos 100% da sua Empresa:</strong> Toda a infraestrutura configurada pertence exclusivamente à sua empresa e é criada nas suas contas. Ao fim da parceria, os ativos e a inteligência gerada continuam com o seu negócio.</li>
+
+                    <li><strong>Documentação Completa:</strong> Ao final do processo, você recebe um documento detalhando toda a estrutura técnica criada, garantindo transparência total e um guia para sua equipe navegar.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Plano de Investimento -->
+        <div class="slide">
+            <h1>Opção A - Plano de Implementação Única</h1>
+            <div class="slide-content">
+                <p>Focado em entregar a arquitetura completa, validada e rodando na sua operação.</p>
+
+                <table class="investment-table">
+                    <thead>
+                        <tr>
+                            <th>Detalhe</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Escopo</strong></td>
+                            <td>Setup completo da infraestrutura (GTM, Supabase, Servidor, tags), <strong>1 mês de implementação + 1 mês de validação</strong>, manutenção e correções iniciais. Entrega da documentação no fim do 2º mês.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modelo</strong></td>
+                            <td>Implementação única com suporte inicial incluído</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Slide 5: Plano Mensal -->
+        <div class="slide">
+            <h1>Opção B - Plano de Gestão Contínua</h1>
+            <div class="slide-content">
+                <p>Implementação completa acompanhada de gestão ativa, manutenção preventiva e corrativa, com garantia contínua de fluxo de dados.</p>
+
+                <table class="investment-table">
+                    <thead>
+                        <tr>
+                            <th>Detalhe</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Escopo</strong></td>
+                            <td>Implementação completa no primeiro mês. Nos meses seguintes: gestão ativa, manutenção preventiva e corretiva, e garantia de que os dados fluam para as plataformas de tráfego sem interrupções.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Investimento Mensal</strong></td>
+                            <td><span class="highlight-green"><strong>R$ 1.500,00</strong></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contrato</strong></td>
+                            <td>Fidelidade de <strong>6 a 12 meses</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Custos de Terceiros</strong></td>
+                            <td>Plataforma Stape (necessária para rodar o Server-Side). Custo de operação repassado diretamente à plataforma.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current">1</span> / <span id="total">6</span>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="previousSlide()">❮</button>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">❯</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Show initial slide
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
