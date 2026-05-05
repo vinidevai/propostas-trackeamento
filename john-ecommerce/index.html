@@ -236,6 +236,53 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 .s4-price-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:5px;}
 
 /* ════════════════════════════════════════
+   SLIDE 4 — OPÇÃO A — PAGAMENTO
+════════════════════════════════════════ */
+.pay-section{margin-top:16px;padding:13px 16px;background:#eff6ff;border-radius:10px;
+  border:1px solid #bfdbfe;}
+.pay-title{font-size:10px;font-weight:700;color:#1e3a8a;text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:9px;}
+.pay-options{display:flex;gap:9px;}
+.pay-opt{flex:1;background:#fff;border-radius:8px;padding:11px 8px;
+  border:1px solid #e2e8f0;text-align:center;}
+.pay-icon{font-size:17px;margin-bottom:3px;}
+.pay-opt-t{font-size:11px;font-weight:700;color:#1e293b;}
+.pay-opt-s{font-size:10px;color:#475569;margin-top:2px;line-height:1.4;}
+
+/* ════════════════════════════════════════
+   SLIDE EC — LOJA INTEGRADA
+════════════════════════════════════════ */
+.sec{background:var(--off);flex-direction:column;padding:42px 70px 32px;}
+.sec-top{margin-bottom:26px;}
+.sec-title{font-size:30px;font-weight:800;color:var(--text);line-height:1.15;margin-bottom:8px;}
+.sec-sub{font-size:14px;color:#475569;max-width:740px;line-height:1.6;}
+.ec-journey{display:flex;align-items:stretch;gap:0;margin-bottom:22px;}
+.ec-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;
+  background:#fff;border-radius:12px;padding:16px 10px;border:1px solid #e2e8f0;}
+.ec-step.ec-final{border-color:#bbf7d0;background:#f0fdf4;}
+.ec-event-tag{font-size:9px;font-weight:700;background:var(--primary);color:#fff;
+  padding:3px 9px;border-radius:12px;letter-spacing:.04em;font-family:monospace;}
+.ec-tag-green{background:#16a34a;}
+.ec-step-icon{font-size:24px;}
+.ec-step-label{font-size:12px;font-weight:600;color:#334155;text-align:center;line-height:1.35;}
+.ec-connector{display:flex;align-items:center;padding:0 5px;color:#94a3b8;font-size:16px;
+  flex-shrink:0;align-self:center;padding-bottom:10px;}
+.ec-bottom{display:flex;align-items:center;gap:18px;}
+.ec-data-card{flex:1;background:#fff;border-radius:12px;padding:16px 20px;border:1px solid #e2e8f0;}
+.ec-data-title{font-size:11px;font-weight:700;color:#334155;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:10px;}
+.ec-data-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.ec-dtag{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:6px;
+  padding:4px 10px;font-size:11px;color:#334155;font-weight:500;}
+.ec-flow-arrow{font-size:22px;color:#94a3b8;flex-shrink:0;}
+.ec-plats-col{display:flex;flex-direction:column;gap:8px;min-width:190px;}
+.ec-plat{border-radius:8px;padding:10px 16px;font-size:12px;font-weight:700;
+  text-align:center;color:#fff;}
+.ec-plat.blue{background:var(--primary);}
+.ec-plat.green{background:#16a34a;}
+.ec-plat.orange{background:#d97706;}
+
+/* ════════════════════════════════════════
    SLIDE 6 — CONTATO
 ════════════════════════════════════════ */
 .s6{background:linear-gradient(135deg,#080f1e 0%,#0d2a5c 55%,#1e3a8a 100%);
@@ -485,6 +532,70 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
   </div>
 </div>
 
+<!-- ══ SLIDE EC: LOJA INTEGRADA ═══════════════════════ -->
+<div class="slide sec">
+  <div class="sec-top">
+    <div class="label">Aplicação Prática — Loja Integrada</div>
+    <h2 class="sec-title">Como cada etapa da compra é rastreada na sua loja</h2>
+    <p class="sec-sub">Do primeiro acesso à confirmação de pagamento — cada evento é capturado pelo servidor e enviado com dados enriquecidos para as plataformas de mídia.</p>
+  </div>
+
+  <div class="ec-journey">
+    <div class="ec-step">
+      <div class="ec-event-tag">PageView</div>
+      <div class="ec-step-icon">🏪</div>
+      <div class="ec-step-label">Acessou<br>a loja</div>
+    </div>
+    <div class="ec-connector">→</div>
+    <div class="ec-step">
+      <div class="ec-event-tag">ViewContent</div>
+      <div class="ec-step-icon">📦</div>
+      <div class="ec-step-label">Visualizou<br>um produto</div>
+    </div>
+    <div class="ec-connector">→</div>
+    <div class="ec-step">
+      <div class="ec-event-tag">AddToCart</div>
+      <div class="ec-step-icon">🛒</div>
+      <div class="ec-step-label">Adicionou<br>ao carrinho</div>
+    </div>
+    <div class="ec-connector">→</div>
+    <div class="ec-step">
+      <div class="ec-event-tag">InitiateCheckout</div>
+      <div class="ec-step-icon">💳</div>
+      <div class="ec-step-label">Iniciou<br>o checkout</div>
+    </div>
+    <div class="ec-connector">→</div>
+    <div class="ec-step ec-final">
+      <div class="ec-event-tag ec-tag-green">Purchase</div>
+      <div class="ec-step-icon">✅</div>
+      <div class="ec-step-label">Compra<br>confirmada</div>
+    </div>
+  </div>
+
+  <div class="ec-bottom">
+    <div class="ec-data-card">
+      <div class="ec-data-title">Dados enviados em cada evento via servidor</div>
+      <div class="ec-data-tags">
+        <span class="ec-dtag">📧 E-mail do cliente</span>
+        <span class="ec-dtag">📱 Telefone</span>
+        <span class="ec-dtag">👤 Nome completo</span>
+        <span class="ec-dtag">📦 Nome do produto</span>
+        <span class="ec-dtag">🏷️ SKU / ID do item</span>
+        <span class="ec-dtag">💰 Valor unitário</span>
+        <span class="ec-dtag">🗂️ Categoria</span>
+        <span class="ec-dtag">🔢 Quantidade</span>
+        <span class="ec-dtag">💵 Receita total do pedido</span>
+      </div>
+    </div>
+    <div class="ec-flow-arrow">→</div>
+    <div class="ec-plats-col">
+      <div class="ec-plat blue">📘 Meta Conversions API</div>
+      <div class="ec-plat orange">📊 Google Ads</div>
+      <div class="ec-plat green">📈 Google Analytics 4</div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ SLIDE 3: RESULTADOS ════════════════════════════ -->
 <div class="slide s3">
   <div class="s3-left col-dark">
@@ -613,7 +724,26 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
       <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Validação e <strong>1 mês de correções iniciais</strong> incluídas sem custo adicional</div></div>
       <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Documentação técnica completa</strong> — guia para sua equipe gerenciar a estrutura</div></div>
     </div>
-    <div class="note-box">💡 <strong>Suporte na contratação do Stape:</strong> auxílio completo no setup. O custo vai diretamente para a plataforma, sem margens adicionais.</div>
+    <div class="pay-section">
+      <div class="pay-title">Formas de Pagamento</div>
+      <div class="pay-options">
+        <div class="pay-opt">
+          <div class="pay-icon">🏦</div>
+          <div class="pay-opt-t">Pix</div>
+          <div class="pay-opt-s">Pagamento à vista</div>
+        </div>
+        <div class="pay-opt">
+          <div class="pay-icon">📅</div>
+          <div class="pay-opt-t">Parcelado 2×</div>
+          <div class="pay-opt-s">1º mês + 2º mês · sem juros</div>
+        </div>
+        <div class="pay-opt">
+          <div class="pay-icon">💳</div>
+          <div class="pay-opt-t">Cartão em até 12×</div>
+          <div class="pay-opt-s">Com taxas da operadora</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
