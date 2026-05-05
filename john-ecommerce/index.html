@@ -202,6 +202,12 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 .ftext strong{color:var(--text);}
 .note-box{margin-top:18px;background:#eff6ff;border-radius:8px;padding:13px 17px;
   border:1px solid #bae6fd;font-size:12px;color:#0369a1;line-height:1.5;}
+.s4-price{margin-top:22px;padding:20px 22px;background:rgba(34,197,94,.1);
+  border-radius:10px;border:1px solid rgba(34,197,94,.25);}
+.s4-price-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.s4-price-value{font-size:44px;font-weight:800;color:#22c55e;line-height:1;}
+.s4-price-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:5px;}
 
 /* ════════════════════════════════════════
    SLIDE 5 — OPÇÃO B
@@ -342,65 +348,79 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <p class="body-dark" style="max-width:620px">Não apenas um pixel — uma arquitetura completa que garante que <strong>nenhum evento seja perdido</strong>, enviando dados enriquecidos direto das suas contas para os algoritmos.</p>
   </div>
 
-  <div class="arch">
-    <div class="a-layer">
-      <div class="a-box a-browser">
-        <div class="a-box-icon">👤</div>
-        <div class="a-box-t" style="color:#1d4ed8">Usuário</div>
-        <div class="a-box-s">Browser / App</div>
-      </div>
-    </div>
-    <div class="a-arrow">
-      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">cliques</text></svg>
-    </div>
-    <div class="a-layer">
-      <div class="a-box a-gtm">
-        <div class="a-box-icon">🏷️</div>
-        <div class="a-box-t" style="color:#92400e">GTM Web</div>
-        <div class="a-box-s">Captura no browser</div>
-      </div>
-    </div>
-    <div class="a-arrow">
-      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">processa</text></svg>
-    </div>
-    <div class="a-layer" style="gap:14px">
-      <div class="a-box a-server">
-        <div class="a-box-icon">🖥️</div>
-        <div class="a-box-t">GTM Server</div>
-        <div class="a-box-s">Stape Pro — Ambiente Isolado</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <svg width="16" height="16"><line x1="8" y1="0" x2="8" y2="16" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/></svg>
-        <div class="a-box a-db" style="min-width:130px">
-          <div class="a-box-icon">🗄️</div>
-          <div class="a-box-t" style="color:#15803d">Supabase DB</div>
-          <div class="a-box-s">30 dias persistência</div>
-        </div>
-      </div>
-    </div>
-    <div class="a-arrow">
-      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">envia</text></svg>
-    </div>
-    <div class="a-layer">
-      <div class="a-plats">
-        <div class="a-box a-plat" style="background:#eff6ff;border-color:#bfdbfe">
-          <div class="a-box-icon">📘</div>
-          <div class="a-box-t" style="color:#1d4ed8">Meta CAPI</div>
-          <div class="a-box-s">FB / Instagram</div>
-        </div>
-        <div class="a-box a-plat a-google">
-          <div class="a-box-icon">🎯</div>
-          <div class="a-box-t" style="color:#92400e">Google Ads</div>
-          <div class="a-box-s">Enhanced Conversions</div>
-        </div>
-        <div class="a-box a-plat a-ga4">
-          <div class="a-box-icon">📊</div>
-          <div class="a-box-t" style="color:#713f12">GA4</div>
-          <div class="a-box-s">Analytics Server</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Architecture diagram — single SVG for pixel-perfect alignment -->
+  <!-- Main axis y=120. All primary boxes centered there. -->
+  <svg width="940" height="290" viewBox="0 0 940 290" style="display:block;margin:0 auto;flex:1">
+    <defs>
+      <linearGradient id="sg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#2563eb"/>
+      </linearGradient>
+    </defs>
+
+    <!-- ① USUÁRIO — center y=120 -->
+    <rect x="10" y="75" width="148" height="90" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+    <text x="84" y="110" text-anchor="middle" font-size="24">👤</text>
+    <text x="84" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">Usuário</text>
+    <text x="84" y="150" text-anchor="middle" font-size="11" fill="#64748b">Browser / App</text>
+
+    <!-- Arrow ① → ② -->
+    <line x1="158" y1="120" x2="218" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+    <polygon points="218,114 228,120 218,126" fill="#cbd5e1"/>
+    <text x="193" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">cliques</text>
+
+    <!-- ② GTM WEB — center y=120 -->
+    <rect x="228" y="75" width="148" height="90" rx="12" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/>
+    <text x="302" y="110" text-anchor="middle" font-size="24">🏷️</text>
+    <text x="302" y="134" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">GTM Web</text>
+    <text x="302" y="150" text-anchor="middle" font-size="11" fill="#64748b">Captura no browser</text>
+
+    <!-- Arrow ② → ③ -->
+    <line x1="376" y1="120" x2="436" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+    <polygon points="436,114 446,120 436,126" fill="#cbd5e1"/>
+    <text x="411" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">processa</text>
+
+    <!-- ③ GTM SERVER — center y=120 -->
+    <rect x="446" y="70" width="188" height="100" rx="12" fill="url(#sg)"/>
+    <text x="540" y="107" text-anchor="middle" font-size="24">🖥️</text>
+    <text x="540" y="132" text-anchor="middle" font-size="14" font-weight="700" fill="white">GTM Server</text>
+    <text x="540" y="150" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.7)">Stape Pro — Ambiente Isolado</text>
+
+    <!-- Supabase — dashed line below GTM Server -->
+    <line x1="540" y1="170" x2="540" y2="200" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="460" y="200" width="160" height="62" rx="10" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/>
+    <text x="540" y="224" text-anchor="middle" font-size="18">🗄️</text>
+    <text x="540" y="244" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">Supabase DB</text>
+    <text x="540" y="257" text-anchor="middle" font-size="10" fill="#64748b">30 dias persistência</text>
+
+    <!-- Arrow ③ → fan-out, y=120 -->
+    <line x1="634" y1="120" x2="694" y2="120" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="664" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">envia</text>
+
+    <!-- Fan-out vertical connector at x=694 -->
+    <!-- Platform centers: Meta y=47, Google y=120, GA4 y=193 -->
+    <line x1="694" y1="47" x2="694" y2="193" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="694" y1="47"  x2="704" y2="47"  stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="694" y1="120" x2="704" y2="120" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="694" y1="193" x2="704" y2="193" stroke="#cbd5e1" stroke-width="1.5"/>
+
+    <!-- ④ META CAPI — center y=47 (box y=15, h=65) -->
+    <rect x="704" y="15" width="220" height="65" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="2"/>
+    <text x="814" y="40" text-anchor="middle" font-size="18">📘</text>
+    <text x="814" y="60" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">Meta CAPI</text>
+    <text x="814" y="72" text-anchor="middle" font-size="10" fill="#64748b">Facebook / Instagram</text>
+
+    <!-- ④ GOOGLE ADS — center y=120 (box y=88, h=65) -->
+    <rect x="704" y="88" width="220" height="65" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/>
+    <text x="814" y="113" text-anchor="middle" font-size="18">🎯</text>
+    <text x="814" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">Google Ads</text>
+    <text x="814" y="145" text-anchor="middle" font-size="10" fill="#64748b">Enhanced Conversions</text>
+
+    <!-- ④ GA4 — center y=193 (box y=161, h=65) -->
+    <rect x="704" y="161" width="220" height="65" rx="10" fill="#fefce8" stroke="#fde68a" stroke-width="2"/>
+    <text x="814" y="186" text-anchor="middle" font-size="18">📊</text>
+    <text x="814" y="206" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">GA4</text>
+    <text x="814" y="218" text-anchor="middle" font-size="10" fill="#64748b">Analytics Server</text>
+  </svg>
 
   <div class="guarantee">
     <span style="font-size:22px">🔒</span>
@@ -469,6 +489,11 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <div class="plan-ideal">
       <div class="plan-ideal-t">Ideal para</div>
       <div class="plan-ideal-b">Empresas que querem a infraestrutura pronta e gerenciam internamente depois.</div>
+    </div>
+    <div class="s4-price">
+      <div class="s4-price-label">Investimento Total</div>
+      <div class="s4-price-value">R$ 5.000</div>
+      <div class="s4-price-sub">pagamento único</div>
     </div>
   </div>
   <div class="s4-content">
