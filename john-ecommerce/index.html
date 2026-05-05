@@ -1,465 +1,576 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposta Comercial - Arquitetura de Dados e Trackeamento Avançado</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta — Trackeamento Avançado</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#0b1426;--primary:#1e3a8a;--blue:#2563eb;--blue-lt:#3b82f6;
+  --accent:#60a5fa;--white:#fff;--off:#f8fafc;--text:#0f172a;--mid:#334155;
+  --green:#16a34a;--green-br:#22c55e;--red:#dc2626;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+body{background:#06101e;display:flex;align-items:center;justify-content:center;
+  width:100vw;height:100vh;overflow:hidden;}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-            overflow: hidden;
-        }
+#stage{position:absolute;width:1280px;height:720px;transform-origin:top left;}
 
-        .presentation {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-        }
+.slide{position:absolute;top:0;left:0;width:1280px;height:720px;display:none;overflow:hidden;}
+.slide.active{display:flex;}
+@keyframes fi{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.slide.in{animation:fi .35s ease-out;}
 
-        .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            padding: 60px;
-            animation: fadeIn 0.5s ease-in;
-            overflow-y: auto;
-            background: white;
-            position: relative;
-        }
+/* ── NAV ── */
+#nav{position:fixed;bottom:0;left:0;width:100%;height:60px;display:flex;
+  align-items:center;justify-content:space-between;padding:0 28px;z-index:999;}
+.nb{width:42px;height:42px;border-radius:50%;background:#1e3a8a;border:2px solid rgba(255,255,255,.25);
+  color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:.2s;box-shadow:0 2px 12px rgba(0,0,0,.4);}
+.nb:hover{background:#2563eb;}
+.dots{display:flex;gap:7px;align-items:center;}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s;}
+.dot.on{background:#fff;width:22px;border-radius:4px;}
+#num{font-size:12px;color:rgba(255,255,255,.4);min-width:40px;text-align:right;}
 
-        .slide.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+/* ── SHARED LAYOUT HELPERS ── */
+.col-dark{display:flex;flex-direction:column;justify-content:center;
+  padding:60px 50px;background:var(--dark);}
+.col-light{flex:1;display:flex;flex-direction:column;justify-content:center;padding:56px 64px;}
+.label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue-lt);margin-bottom:14px;}
+.slide-h1{font-size:38px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;}
+.slide-h1-dark{font-size:38px;font-weight:800;color:var(--text);line-height:1.15;margin-bottom:12px;}
+.body-white{font-size:15px;color:rgba(255,255,255,.62);line-height:1.72;}
+.body-dark{font-size:15px;color:var(--mid);line-height:1.72;}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+/* ════════════════════════════════════════
+   SLIDE 0 — INTRO
+════════════════════════════════════════ */
+.s0{background:linear-gradient(135deg,#080f1e 0%,#0d2a5c 55%,#1e3a8a 100%);flex-direction:row;}
+.s0-left{width:400px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:22px;padding:60px 40px;position:relative;}
+.s0-left::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;
+  background:linear-gradient(to bottom,transparent,rgba(96,165,250,.4),transparent);}
+.avatar{width:172px;height:172px;border-radius:50%;overflow:hidden;
+  border:4px solid var(--blue-lt);
+  box-shadow:0 0 0 10px rgba(59,130,246,.12),0 20px 60px rgba(0,0,0,.5);}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.s0-name{font-size:26px;font-weight:800;color:#fff;text-align:center;}
+.s0-role{font-size:14px;color:#93c5fd;text-align:center;line-height:1.6;}
+.s0-flags{display:flex;gap:10px;}
+.flag{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.08);padding:5px 13px;border-radius:20px;}
+.flag-em{font-size:18px;}
+.s0-since{font-size:12px;color:rgba(255,255,255,.4);text-align:center;}
+.s0-right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 80px 60px 60px;}
+.tag{display:inline-block;background:rgba(59,130,246,.18);color:#93c5fd;
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  padding:5px 14px;border-radius:4px;margin-bottom:22px;border:1px solid rgba(59,130,246,.3);}
+.s0-title{font-size:50px;font-weight:800;color:#fff;line-height:1.12;margin-bottom:20px;}
+.s0-title span{color:var(--accent);}
+.s0-desc{font-size:17px;color:rgba(255,255,255,.6);line-height:1.72;max-width:480px;margin-bottom:44px;}
+.divider{width:44px;height:3px;background:var(--blue-lt);margin-bottom:28px;}
+.stats{display:flex;gap:44px;}
+.stat-n{font-size:42px;font-weight:800;color:var(--green-br);line-height:1;}
+.stat-l{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px;}
 
-        /* Slide 1 - Intro */
-        .slide-intro {
-            background: linear-gradient(135deg, #0d2a5c 0%, #1a3a7a 100%);
-            color: white;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-        }
+/* ════════════════════════════════════════
+   SLIDE 1 — PROBLEMA
+════════════════════════════════════════ */
+.s1{background:var(--off);flex-direction:row;}
+.s1-left{width:490px;flex-shrink:0;}
+.s1-right{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:40px 56px;gap:16px;}
+.pcards{display:flex;flex-direction:column;gap:13px;margin-top:10px;}
+.pc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-left:3px solid var(--red);border-radius:8px;padding:14px 18px;
+  display:flex;align-items:center;gap:14px;}
+.pc-icon{font-size:26px;flex-shrink:0;}
+.pc-t{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px;}
+.pc-s{font-size:12px;color:rgba(255,255,255,.5);line-height:1.4;}
+.pc-pct{margin-left:auto;font-size:22px;font-weight:800;color:#f87171;flex-shrink:0;}
 
-        .intro-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-        }
+.funnel-title{font-size:17px;font-weight:700;color:var(--text);text-align:center;}
+.impact{background:#fff;border-radius:12px;padding:18px 28px;
+  border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.06);
+  text-align:center;width:100%;max-width:420px;}
+.impact-v{font-size:52px;font-weight:800;color:var(--red);line-height:1;}
+.impact-l{font-size:14px;color:#64748b;margin-top:5px;}
+.impact-s{font-size:12px;color:#94a3b8;margin-top:3px;}
 
-        .photo-container {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 6px solid white;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
+/* ════════════════════════════════════════
+   SLIDE 2 — SOLUÇÃO
+════════════════════════════════════════ */
+.s2{background:#fff;flex-direction:column;padding:48px 72px 36px;}
+.s2 .label{color:var(--blue);}
+.arch{display:flex;align-items:center;justify-content:center;gap:0;flex:1;margin-top:8px;}
+.a-layer{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.a-box{border-radius:12px;padding:16px 20px;text-align:center;min-width:148px;}
+.a-box-icon{font-size:26px;margin-bottom:5px;}
+.a-box-t{font-size:14px;font-weight:700;}
+.a-box-s{font-size:11px;color:#64748b;margin-top:2px;}
+.a-browser{background:#eff6ff;border:2px solid #bfdbfe;}
+.a-browser .a-box-t{color:#1d4ed8;}
+.a-gtm{background:#fff7ed;border:2px solid #fed7aa;}
+.a-gtm .a-box-t{color:#92400e;}
+.a-server{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;min-width:180px;}
+.a-server .a-box-t{color:#fff;font-size:15px;}
+.a-server .a-box-s{color:rgba(255,255,255,.65);}
+.a-db{background:#f0fdf4;border:2px solid #bbf7d0;}
+.a-db .a-box-t{color:#15803d;}
+.a-plat{background:#faf5ff;border:2px solid #e9d5ff;min-width:130px;}
+.a-meta .a-box-t{color:#1d4ed8;}
+.a-google{background:#fff7ed;border:2px solid #fed7aa;}
+.a-google .a-box-t{color:#92400e;}
+.a-ga4{background:#fefce8;border:2px solid #fde68a;}
+.a-ga4 .a-box-t{color:#713f12;}
+.a-arrow{display:flex;align-items:center;color:#94a3b8;flex-shrink:0;}
+.a-plats{display:flex;flex-direction:column;gap:10px;}
+.guarantee{margin-top:22px;padding:16px 22px;background:#eff6ff;border-radius:10px;
+  border-left:4px solid var(--blue);display:flex;align-items:center;gap:14px;}
+.guarantee-t{font-size:13px;font-weight:700;color:var(--primary);}
+.guarantee-s{font-size:12px;color:#64748b;margin-top:2px;}
 
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+/* ════════════════════════════════════════
+   SLIDE 3 — RESULTADOS
+════════════════════════════════════════ */
+.s3{background:var(--dark);flex-direction:row;}
+.s3-left{width:400px;flex-shrink:0;}
+.s3-left .body-white{margin-bottom:28px;}
+.blist{display:flex;flex-direction:column;gap:15px;}
+.bi{display:flex;align-items:center;gap:13px;}
+.bi-ic{width:34px;height:34px;border-radius:8px;background:rgba(34,197,94,.15);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.bi-t{font-size:14px;font-weight:600;color:#fff;}
+.bi-s{font-size:12px;color:rgba(255,255,255,.45);margin-top:1px;}
+.s3-right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 56px;gap:18px;}
+.chart-section-t{font-size:14px;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:4px;}
+.chart-note{font-size:11px;color:rgba(255,255,255,.3);font-style:italic;margin-top:2px;}
+.crow{display:flex;flex-direction:column;gap:5px;}
+.clabel{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.clabel-t{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);}
+.clabel-s{font-size:11px;color:rgba(255,255,255,.4);}
+.cbars{display:flex;flex-direction:column;gap:4px;}
+.brow{display:flex;align-items:center;gap:9px;}
+.btag{font-size:10px;font-weight:700;color:rgba(255,255,255,.45);width:38px;text-align:right;flex-shrink:0;}
+.btrack{flex:1;height:26px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden;}
+.bfill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;
+  font-size:12px;font-weight:700;color:#fff;}
+.bfill.bad{background:rgba(239,68,68,.65);}
+.bfill.good{background:linear-gradient(90deg,#15803d,#22c55e);}
+.metrics{display:flex;gap:14px;margin-top:6px;}
+.met{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;padding:18px;text-align:center;}
+.met-v{font-size:34px;font-weight:800;color:var(--green-br);line-height:1;}
+.met-v.neg{color:#f87171;}
+.met-l{font-size:12px;color:rgba(255,255,255,.45);margin-top:5px;}
+.met-s{font-size:10px;color:rgba(255,255,255,.3);margin-top:2px;}
 
-        .intro-text h1 {
-            font-size: 2.8em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
-        }
+/* ════════════════════════════════════════
+   SLIDE 4 — OPÇÃO A
+════════════════════════════════════════ */
+.s4{background:var(--off);flex-direction:row;}
+.s4-hd{width:380px;flex-shrink:0;}
+.plan-badge{display:inline-block;font-size:11px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;padding:5px 13px;
+  border-radius:4px;margin-bottom:18px;
+  background:rgba(59,130,246,.18);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+.plan-ideal{margin-top:28px;padding:18px;background:rgba(255,255,255,.06);
+  border-radius:10px;border:1px solid rgba(255,255,255,.1);}
+.plan-ideal-t{font-size:11px;font-weight:700;color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;}
+.plan-ideal-b{font-size:14px;color:#fff;line-height:1.6;}
+.s4-content{flex:1;display:flex;flex-direction:column;justify-content:center;padding:50px 60px;}
+.tl-title{font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:14px;}
+.tl-row{display:flex;gap:12px;margin-bottom:28px;}
+.tm{flex:1;border-radius:10px;padding:16px;}
+.tm1{background:var(--primary);color:#fff;}
+.tm2{background:#dbeafe;color:var(--primary);}
+.tm-label{font-size:11px;font-weight:700;opacity:.65;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:5px;}
+.tm-title{font-size:14px;font-weight:700;}
+.tm-sub{font-size:12px;opacity:.65;margin-top:4px;line-height:1.4;}
+.flist{display:flex;flex-direction:column;gap:11px;}
+.fi{display:flex;align-items:flex-start;gap:11px;}
+.fcheck{width:22px;height:22px;border-radius:50%;background:var(--primary);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.fcheck svg{width:11px;height:11px;}
+.ftext{font-size:14px;color:#1e293b;line-height:1.5;}
+.ftext strong{color:var(--text);}
+.note-box{margin-top:18px;background:#eff6ff;border-radius:8px;padding:13px 17px;
+  border:1px solid #bae6fd;font-size:12px;color:#0369a1;line-height:1.5;}
 
-        .intro-text p {
-            font-size: 1.4em;
-            font-weight: 300;
-            margin-bottom: 8px;
-            opacity: 0.95;
-        }
-
-        .intro-text .subtitle {
-            font-size: 1.1em;
-            opacity: 0.85;
-            margin-top: 20px;
-            line-height: 1.6;
-        }
-
-        /* Standard Slides */
-        .slide {
-            color: #1a1a1a;
-        }
-
-        .slide h1 {
-            color: #0d2a5c;
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            border-bottom: 4px solid #0d2a5c;
-            padding-bottom: 20px;
-        }
-
-        .slide h2 {
-            color: #0d2a5c;
-            font-size: 1.8em;
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        .slide-content {
-            font-size: 1.2em;
-            line-height: 1.8;
-            max-width: 1000px;
-        }
-
-        .slide-content p {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .highlight-green {
-            color: #22a34d;
-            font-weight: 600;
-        }
-
-        .highlight-blue {
-            color: #0d2a5c;
-            font-weight: 600;
-        }
-
-        /* Bullet points */
-        .bullet-list {
-            margin: 20px 0 20px 40px;
-            list-style: none;
-        }
-
-        .bullet-list li {
-            margin-bottom: 18px;
-            padding-left: 30px;
-            position: relative;
-            color: #333;
-        }
-
-        .bullet-list li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #0d2a5c;
-            font-size: 1.5em;
-        }
-
-        .bullet-list li strong {
-            color: #0d2a5c;
-        }
-
-        /* Slide 4 - Table */
-        .investment-table {
-            width: 100%;
-            margin-top: 30px;
-            border-collapse: collapse;
-            font-size: 1.05em;
-        }
-
-        .investment-table thead {
-            background: #0d2a5c;
-            color: white;
-        }
-
-        .investment-table th {
-            padding: 20px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .investment-table td {
-            padding: 18px 20px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .investment-table tbody tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        .investment-table tbody tr:hover {
-            background: #f0f5ff;
-        }
-
-        /* Navigation */
-        .nav-buttons {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        .nav-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #0d2a5c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1.3em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(13, 42, 92, 0.3);
-        }
-
-        .nav-btn:hover {
-            background: #1a3a7a;
-            transform: scale(1.1);
-        }
-
-        .nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        .slide-counter {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
-            color: #0d2a5c;
-            font-size: 1.1em;
-            font-weight: 600;
-        }
-
-        .keyboard-hint {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            font-size: 0.9em;
-            color: #666;
-            opacity: 0.7;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .slide {
-                padding: 40px 20px;
-            }
-
-            .slide h1 {
-                font-size: 2em;
-            }
-
-            .slide-content {
-                font-size: 1em;
-            }
-
-            .photo-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .intro-text h1 {
-                font-size: 1.8em;
-            }
-
-            .intro-text p {
-                font-size: 1.1em;
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .nav-buttons, .slide-counter, .keyboard-hint {
-                display: none;
-            }
-        }
-    </style>
+/* ════════════════════════════════════════
+   SLIDE 5 — OPÇÃO B
+════════════════════════════════════════ */
+.s5{background:var(--off);flex-direction:row;}
+.s5-hd{width:380px;flex-shrink:0;background:linear-gradient(160deg,#0b1426,#0f2d1a);}
+.s5-hd .plan-badge{background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.3);}
+.s5-content{flex:1;display:flex;flex-direction:column;justify-content:center;padding:50px 60px;}
+.price-card{background:#fff;border-radius:14px;padding:28px 32px;
+  border:2px solid #e2e8f0;box-shadow:0 8px 30px rgba(0,0,0,.07);margin-bottom:20px;}
+.price-top{display:flex;align-items:baseline;gap:7px;margin-bottom:6px;}
+.p-curr{font-size:20px;font-weight:700;color:var(--green);}
+.p-amt{font-size:58px;font-weight:800;color:var(--green);line-height:1;}
+.p-per{font-size:15px;color:#64748b;}
+.p-desc{font-size:13px;color:#94a3b8;line-height:1.5;margin-top:6px;}
+.info-tags{display:flex;gap:9px;margin-bottom:22px;flex-wrap:wrap;}
+.itag{display:flex;align-items:center;gap:6px;background:#f1f5f9;
+  color:#334155;font-size:12px;font-weight:600;padding:7px 13px;border-radius:7px;}
+.s5-fcheck{background:var(--green);}
+</style>
 </head>
 <body>
-    <div class="keyboard-hint">Use ← → ou clique para navegar</div>
+<div id="stage">
 
-    <div class="presentation">
-        <!-- Slide 0: Introdução -->
-        <div class="slide slide-intro active">
-            <div class="intro-content">
-                <div class="photo-container">
-                    <img src="https://github.com/vinidevai.png" alt="Vinicius Sousa">
-                </div>
-                <div class="intro-text">
-                    <h1>Vinicius Sousa</h1>
-                    <p>Desenvolvedor de Trackeamento</p>
-                    <p>Gestor de Tráfego</p>
-                    <div class="subtitle">
-                        Implementando trackeamento avançado para empresas nos <strong>Estados Unidos</strong> e no <strong>Brasil</strong> desde 2023.
-                    </div>
-                </div>
-            </div>
+<!-- ══ SLIDE 0: INTRO ══════════════════════════════════ -->
+<div class="slide s0 active">
+  <div class="s0-left">
+    <div class="avatar"><img src="https://github.com/vinidevai.png" alt="Vinicius Sousa"></div>
+    <div>
+      <div class="s0-name">Vinicius Sousa</div>
+      <div class="s0-role">Desenvolvedor de Trackeamento<br>Gestor de Tráfego</div>
+    </div>
+    <div class="s0-flags">
+      <div class="flag"><span class="flag-em">🇧🇷</span><span>Brasil</span></div>
+      <div class="flag"><span class="flag-em">🇺🇸</span><span>EUA</span></div>
+    </div>
+    <div class="s0-since">Especialista desde 2023</div>
+  </div>
+  <div class="s0-right">
+    <div class="tag">Proposta Comercial</div>
+    <h1 class="s0-title">Arquitetura de Dados<br>e <span>Trackeamento Avançado</span></h1>
+    <p class="s0-desc">Implementação de infraestrutura de Server-Side Tracking para maximizar a inteligência das suas campanhas e reduzir o custo por aquisição.</p>
+    <div class="divider"></div>
+    <div class="stats">
+      <div><div class="stat-n">+95%</div><div class="stat-l">Match Rate</div></div>
+      <div><div class="stat-n">-30%</div><div class="stat-l">no CPA médio</div></div>
+      <div><div class="stat-n">+50%</div><div class="stat-l">no ROAS</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 1: PROBLEMA ═══════════════════════════════ -->
+<div class="slide s1">
+  <div class="s1-left col-dark">
+    <div class="label">01 — O Problema</div>
+    <h2 class="slide-h1">Sua plataforma<br>está "cega" para<br>suas conversões</h2>
+    <p class="body-white" style="margin-bottom:20px">Fatores externos bloqueiam os dados antes deles chegarem ao Meta ou Google Ads.</p>
+    <div class="pcards">
+      <div class="pc">
+        <div class="pc-icon">🚫</div>
+        <div><div class="pc-t">Ad Blockers</div><div class="pc-s">Bloqueiam o pixel antes de disparar</div></div>
+        <div class="pc-pct">~40%</div>
+      </div>
+      <div class="pc">
+        <div class="pc-icon">📱</div>
+        <div><div class="pc-t">iOS 14+ / ATT</div><div class="pc-s">Restrições de privacidade limitam rastreamento</div></div>
+        <div class="pc-pct">~35%</div>
+      </div>
+      <div class="pc">
+        <div class="pc-icon">🍪</div>
+        <div><div class="pc-t">Cookies de 3ª Parte</div><div class="pc-s">Bloqueados pelos principais navegadores</div></div>
+        <div class="pc-pct">~30%</div>
+      </div>
+    </div>
+  </div>
+  <div class="s1-right">
+    <div class="funnel-title">O que acontece com seus dados hoje</div>
+    <svg width="500" height="330" viewBox="0 0 500 330">
+      <!-- titles -->
+      <text x="115" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#1e293b">SEM Server-Side</text>
+      <text x="385" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">COM Server-Side</text>
+      <!-- divider -->
+      <line x1="250" y1="10" x2="250" y2="320" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+      <!-- LEFT FUNNEL (bad) -->
+      <path d="M30 30 L200 30 L165 115 L65 115 Z" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="115" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b">100 eventos</text>
+      <text x="115" y="78" text-anchor="middle" font-size="12" fill="#7f1d1d">na sua loja</text>
+      <!-- leak icons -->
+      <circle cx="48" cy="80" r="16" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+      <text x="48" y="86" text-anchor="middle" font-size="15">🚫</text>
+      <circle cx="178" cy="95" r="16" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+      <text x="178" y="101" text-anchor="middle" font-size="15">📱</text>
+      <!-- narrow part (loss) -->
+      <path d="M65 115 L165 115 L140 195 L90 195 Z" fill="#fecaca" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="115" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">-40%</text>
+      <text x="115" y="175" text-anchor="middle" font-size="11" fill="#991b1b">perdido</text>
+      <!-- output box bad -->
+      <rect x="60" y="203" width="110" height="48" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="115" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">Apenas 60 eventos</text>
+      <text x="115" y="238" text-anchor="middle" font-size="11" fill="#991b1b">chegam à plataforma</text>
+      <!-- result bad -->
+      <text x="115" y="278" text-anchor="middle" font-size="22">😕</text>
+      <text x="115" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">Algoritmo desorientado</text>
+
+      <!-- RIGHT FUNNEL (good) -->
+      <path d="M300 30 L470 30 L435 115 L335 115 Z" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="385" y="60" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">100 eventos</text>
+      <text x="385" y="78" text-anchor="middle" font-size="12" fill="#14532d">na sua loja</text>
+      <!-- server badge -->
+      <rect x="345" y="80" width="80" height="24" rx="6" fill="#1e3a8a"/>
+      <text x="385" y="96" text-anchor="middle" font-size="11" fill="white" font-weight="700">🖥 Server</text>
+      <!-- full funnel -->
+      <path d="M335 115 L435 115 L415 195 L355 195 Z" fill="#bbf7d0" stroke="#86efac" stroke-width="1.5"/>
+      <text x="385" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">+35%</text>
+      <text x="385" y="175" text-anchor="middle" font-size="11" fill="#14532d">recuperado</text>
+      <!-- output box good -->
+      <rect x="330" y="203" width="110" height="48" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <text x="385" y="222" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">~95 eventos</text>
+      <text x="385" y="238" text-anchor="middle" font-size="11" fill="#15803d">chegam ao destino</text>
+      <!-- result good -->
+      <text x="385" y="278" text-anchor="middle" font-size="22">🚀</text>
+      <text x="385" y="300" text-anchor="middle" font-size="11" font-weight="700" fill="#16a34a">Algoritmo otimizado</text>
+    </svg>
+    <div class="impact">
+      <div class="impact-v">-40%</div>
+      <div class="impact-l">dos seus dados nunca chegam à plataforma</div>
+      <div class="impact-s">Resultado: CPA inflado e campanhas sub-otimizadas</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2: SOLUÇÃO ════════════════════════════════ -->
+<div class="slide s2">
+  <div class="slide-header" style="margin-bottom:28px">
+    <div class="label" style="color:var(--blue)">02 — A Solução</div>
+    <div class="slide-h1-dark">Infraestrutura de Server-Side Tracking</div>
+    <p class="body-dark" style="max-width:620px">Não apenas um pixel — uma arquitetura completa que garante que <strong>nenhum evento seja perdido</strong>, enviando dados enriquecidos direto das suas contas para os algoritmos.</p>
+  </div>
+
+  <div class="arch">
+    <div class="a-layer">
+      <div class="a-box a-browser">
+        <div class="a-box-icon">👤</div>
+        <div class="a-box-t" style="color:#1d4ed8">Usuário</div>
+        <div class="a-box-s">Browser / App</div>
+      </div>
+    </div>
+    <div class="a-arrow">
+      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">cliques</text></svg>
+    </div>
+    <div class="a-layer">
+      <div class="a-box a-gtm">
+        <div class="a-box-icon">🏷️</div>
+        <div class="a-box-t" style="color:#92400e">GTM Web</div>
+        <div class="a-box-s">Captura no browser</div>
+      </div>
+    </div>
+    <div class="a-arrow">
+      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">processa</text></svg>
+    </div>
+    <div class="a-layer" style="gap:14px">
+      <div class="a-box a-server">
+        <div class="a-box-icon">🖥️</div>
+        <div class="a-box-t">GTM Server</div>
+        <div class="a-box-s">Stape Pro — Ambiente Isolado</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <svg width="16" height="16"><line x1="8" y1="0" x2="8" y2="16" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/></svg>
+        <div class="a-box a-db" style="min-width:130px">
+          <div class="a-box-icon">🗄️</div>
+          <div class="a-box-t" style="color:#15803d">Supabase DB</div>
+          <div class="a-box-s">30 dias persistência</div>
         </div>
-
-        <!-- Slide 1: O Cenário Atual -->
-        <div class="slide">
-            <h1>O Cenário Atual e o Problema Oculto</h1>
-            <div class="slide-content">
-                <p>Atualmente, fatores como bloqueadores de anúncios (AdBlockers), restrições de privacidade (como iOS 14+) e o bloqueio de cookies de terceiros fazem com que as plataformas de tráfego fiquem "cegas".</p>
-
-                <p>Quando um cliente acessa sua loja, adiciona um produto ao carrinho ou até mesmo finaliza uma compra, <strong>parte significativa desses dados se perde antes de chegar ao Meta ou Google Ads</strong>.</p>
-
-                <p><strong>O impacto direto:</strong> perda de inteligência da campanha. Os algoritmos não conseguem identificar o perfil exato do seu comprador, tornando o <span class="highlight-green">Custo por Aquisição (CPA) mais alto</span> do que deveria ser.</p>
-            </div>
+      </div>
+    </div>
+    <div class="a-arrow">
+      <svg width="64" height="36"><line x1="4" y1="18" x2="54" y2="18" stroke="#94a3b8" stroke-width="2"/><polygon points="54,12 64,18 54,24" fill="#94a3b8"/><text x="32" y="12" text-anchor="middle" font-size="10" fill="#94a3b8">envia</text></svg>
+    </div>
+    <div class="a-layer">
+      <div class="a-plats">
+        <div class="a-box a-plat" style="background:#eff6ff;border-color:#bfdbfe">
+          <div class="a-box-icon">📘</div>
+          <div class="a-box-t" style="color:#1d4ed8">Meta CAPI</div>
+          <div class="a-box-s">FB / Instagram</div>
         </div>
-
-        <!-- Slide 2: A Solução Técnica -->
-        <div class="slide">
-            <h1>A Solução Técnica (Server-Side Tracking)</h1>
-            <div class="slide-content">
-                <p>A solução não é apenas instalar um "pixel", mas <strong>construir uma infraestrutura de dados robusta e independente</strong> para rotear eventos exatos (Page View, Add to Cart, Initiate Checkout, Purchase) para Meta, Google Ads e GA4.</p>
-
-                <p>O projeto consiste em:</p>
-
-                <ul class="bullet-list">
-                    <li><strong>Google Tag Manager (Web e Server):</strong> Captura e processamento duplo para garantir que nenhuma ação seja perdida.</li>
-                    <li><strong>Banco de Dados Supabase:</strong> Armazenamento de dados do usuário com persistência de 30 dias. Isso permite cruzar as ações ao longo do funil e garantir a correspondência exata do evento com o cliente correto.</li>
-                    <li><strong>Servidor Stape (Plano Pro):</strong> Ambiente isolado para processamento dos dados. <em>A contratação desta ferramenta será feita pelo cliente, com todo o meu auxílio e direcionamento técnico durante o setup.</em></li>
-                </ul>
-            </div>
+        <div class="a-box a-plat a-google">
+          <div class="a-box-icon">🎯</div>
+          <div class="a-box-t" style="color:#92400e">Google Ads</div>
+          <div class="a-box-s">Enhanced Conversions</div>
         </div>
-
-        <!-- Slide 3: O Valor e os Benefícios -->
-        <div class="slide">
-            <h1>O Valor e os Benefícios a Longo Prazo</h1>
-            <div class="slide-content">
-                <p>Este é um investimento em inteligência comercial e infraestrutura digital que acompanha o negócio indefinidamente.</p>
-
-                <ul class="bullet-list">
-                    <li><strong>Alimentação do Algoritmo:</strong> Ao enviar dados precisos e enriquecidos de volta para as plataformas de tráfego, aumentamos a inteligência das campanhas. Isso reflete em um <span class="highlight-green">CPA mais baixo</span> e um <span class="highlight-green">ROAS maior</span>.</li>
-
-                    <li><strong>Ativos 100% da sua Empresa:</strong> Toda a infraestrutura configurada pertence exclusivamente à sua empresa e é criada nas suas contas. Ao fim da parceria, os ativos e a inteligência gerada continuam com o seu negócio.</li>
-
-                    <li><strong>Documentação Completa:</strong> Ao final do processo, você recebe um documento detalhando toda a estrutura técnica criada, garantindo transparência total e um guia para sua equipe navegar.</li>
-                </ul>
-            </div>
+        <div class="a-box a-plat a-ga4">
+          <div class="a-box-icon">📊</div>
+          <div class="a-box-t" style="color:#713f12">GA4</div>
+          <div class="a-box-s">Analytics Server</div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Slide 4: Plano de Investimento -->
-        <div class="slide">
-            <h1>Opção A - Plano de Implementação Única</h1>
-            <div class="slide-content">
-                <p>Focado em entregar a arquitetura completa, validada e rodando na sua operação.</p>
+  <div class="guarantee">
+    <span style="font-size:22px">🔒</span>
+    <div>
+      <div class="guarantee-t">Toda infraestrutura criada 100% nas suas contas — você tem propriedade total</div>
+      <div class="guarantee-s">Stape é contratada por você com meu suporte técnico completo. Sem intermediários.</div>
+    </div>
+  </div>
+</div>
 
-                <table class="investment-table">
-                    <thead>
-                        <tr>
-                            <th>Detalhe</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Escopo</strong></td>
-                            <td>Setup completo da infraestrutura (GTM, Supabase, Servidor, tags), <strong>1 mês de implementação + 1 mês de validação</strong>, manutenção e correções iniciais. Entrega da documentação no fim do 2º mês.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Modelo</strong></td>
-                            <td>Implementação única com suporte inicial incluído</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<!-- ══ SLIDE 3: RESULTADOS ════════════════════════════ -->
+<div class="slide s3">
+  <div class="s3-left col-dark">
+    <div class="label">03 — Resultados</div>
+    <h2 class="slide-h1">O impacto real<br>nas suas campanhas</h2>
+    <p class="body-white">Dados precisos = algoritmo mais inteligente = campanha que gasta menos e vende mais.</p>
+    <div class="blist">
+      <div class="bi"><div class="bi-ic">📉</div><div><div class="bi-t">CPA mais baixo</div><div class="bi-s">Algoritmo encontra o comprador ideal</div></div></div>
+      <div class="bi"><div class="bi-ic">📈</div><div><div class="bi-t">ROAS maior</div><div class="bi-s">Otimização baseada em dados reais</div></div></div>
+      <div class="bi"><div class="bi-ic">🎯</div><div><div class="bi-t">Atribuição precisa</div><div class="bi-s">Sabe de onde vem cada venda</div></div></div>
+      <div class="bi"><div class="bi-ic">🏛️</div><div><div class="bi-t">Ativos da sua empresa</div><div class="bi-s">Infraestrutura e dados ficam com você</div></div></div>
+    </div>
+  </div>
+  <div class="s3-right">
+    <div class="chart-section-t">Comparativo: Antes × Depois do Server-Side Tracking</div>
 
-        <!-- Slide 5: Plano Mensal -->
-        <div class="slide">
-            <h1>Opção B - Plano de Gestão Contínua</h1>
-            <div class="slide-content">
-                <p>Implementação completa acompanhada de gestão ativa, manutenção preventiva e corrativa, com garantia contínua de fluxo de dados.</p>
-
-                <table class="investment-table">
-                    <thead>
-                        <tr>
-                            <th>Detalhe</th>
-                            <th>Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Escopo</strong></td>
-                            <td>Implementação completa no primeiro mês. Nos meses seguintes: gestão ativa, manutenção preventiva e corretiva, e garantia de que os dados fluam para as plataformas de tráfego sem interrupções.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Investimento Mensal</strong></td>
-                            <td><span class="highlight-green"><strong>R$ 1.500,00</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Contrato</strong></td>
-                            <td>Fidelidade de <strong>6 a 12 meses</strong></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Custos de Terceiros</strong></td>
-                            <td>Plataforma Stape (necessária para rodar o Server-Side). Custo de operação repassado diretamente à plataforma.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="crow">
+      <div class="clabel"><span class="clabel-t">Match Rate — Qualidade dos Dados</span><span class="clabel-s">eventos identificados ✓</span></div>
+      <div class="cbars">
+        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:55%">55%</div></div></div>
+        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:95%">95%</div></div></div>
+      </div>
     </div>
 
-    <div class="slide-counter">
-        <span id="current">1</span> / <span id="total">6</span>
+    <div class="crow">
+      <div class="clabel"><span class="clabel-t">Custo por Aquisição (CPA)</span><span class="clabel-s">quanto menor, melhor ↓</span></div>
+      <div class="cbars">
+        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:100%">R$ 120</div></div></div>
+        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:67%">R$ 80</div></div></div>
+      </div>
     </div>
 
-    <div class="nav-buttons">
-        <button class="nav-btn" id="prevBtn" onclick="previousSlide()">❮</button>
-        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">❯</button>
+    <div class="crow">
+      <div class="clabel"><span class="clabel-t">ROAS — Retorno sobre o Investimento</span><span class="clabel-s">quanto maior, melhor ↑</span></div>
+      <div class="cbars">
+        <div class="brow"><span class="btag">Antes</span><div class="btrack"><div class="bfill bad" style="width:50%">3×</div></div></div>
+        <div class="brow"><span class="btag" style="color:#4ade80">Depois</span><div class="btrack"><div class="bfill good" style="width:83%">5×</div></div></div>
+      </div>
     </div>
 
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+    <div class="metrics">
+      <div class="met"><div class="met-v">+40pp</div><div class="met-l">Match Rate</div><div class="met-s">55% → 95%</div></div>
+      <div class="met"><div class="met-v neg">-33%</div><div class="met-l">Custo por Aquisição</div><div class="met-s">Economia real de verba</div></div>
+      <div class="met"><div class="met-v">+67%</div><div class="met-l">ROAS</div><div class="met-s">3× → 5× de retorno</div></div>
+    </div>
+    <div class="chart-note">*Números representativos de resultados típicos em implementações de Server-Side Tracking</div>
+  </div>
+</div>
 
-        document.getElementById('total').textContent = totalSlides;
+<!-- ══ SLIDE 4: OPÇÃO A ════════════════════════════════ -->
+<div class="slide s4">
+  <div class="s4-hd col-dark">
+    <div class="plan-badge">Opção A</div>
+    <h2 class="slide-h1">Plano de<br>Implementação Única</h2>
+    <p class="body-white">Setup completo da arquitetura em 2 meses, com documentação técnica total entregue.</p>
+    <div class="plan-ideal">
+      <div class="plan-ideal-t">Ideal para</div>
+      <div class="plan-ideal-b">Empresas que querem a infraestrutura pronta e gerenciam internamente depois.</div>
+    </div>
+  </div>
+  <div class="s4-content">
+    <div class="tl-title">Timeline de entrega</div>
+    <div class="tl-row">
+      <div class="tm tm1">
+        <div class="tm-label">Mês 1</div>
+        <div class="tm-title">🔧 Implementação</div>
+        <div class="tm-sub">GTM Web + Server, Supabase, tags completas (PV, ATC, IC, Purchase) com dados enriquecidos</div>
+      </div>
+      <div class="tm tm2">
+        <div class="tm-label">Mês 2</div>
+        <div class="tm-title">✅ Validação + Documentação</div>
+        <div class="tm-sub">Testes, correções iniciais e entrega de documentação técnica completa da estrutura</div>
+      </div>
+    </div>
+    <div class="flist">
+      <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Setup completo: <strong>GTM Web, GTM Server, Supabase e Stape</strong></div></div>
+      <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Eventos configurados com dados de usuário: <strong>Page View, Add to Cart, Checkout, Purchase</strong></div></div>
+      <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Validação e <strong>1 mês de correções iniciais</strong> incluídas sem custo adicional</div></div>
+      <div class="fi"><div class="fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Documentação técnica completa</strong> — guia para sua equipe gerenciar a estrutura</div></div>
+    </div>
+    <div class="note-box">💡 <strong>Suporte na contratação do Stape:</strong> auxílio completo no setup. O custo vai diretamente para a plataforma, sem margens adicionais.</div>
+  </div>
+</div>
 
-        function showSlide(n) {
-            slides.forEach(slide => slide.classList.remove('active'));
+<!-- ══ SLIDE 5: OPÇÃO B ════════════════════════════════ -->
+<div class="slide s5">
+  <div class="s5-hd col-dark">
+    <div class="plan-badge s5-badge" style="background:rgba(34,197,94,.15);color:#4ade80;border-color:rgba(34,197,94,.3)">Opção B</div>
+    <h2 class="slide-h1">Plano de<br>Gestão Contínua</h2>
+    <p class="body-white">Implementação completa + gestão ativa mês a mês. Dados fluindo sem interrupções, sempre.</p>
+    <div class="plan-ideal">
+      <div class="plan-ideal-t">Ideal para</div>
+      <div class="plan-ideal-b">Empresas que querem parceria contínua e garantia de dados sempre otimizados.</div>
+    </div>
+  </div>
+  <div class="s5-content">
+    <div class="price-card">
+      <div class="price-top">
+        <span class="p-curr">R$</span>
+        <span class="p-amt">1.500</span>
+        <span class="p-per">/mês</span>
+      </div>
+      <div class="p-desc">Investimento mensal · Fidelidade de 6 a 12 meses · Custos da plataforma Stape repassados diretamente</div>
+    </div>
+    <div class="info-tags">
+      <div class="itag">📅 Contrato: 6–12 meses</div>
+      <div class="itag">🔧 Manutenção preventiva e corretiva</div>
+      <div class="itag">🛡️ Gestão ativa mensal</div>
+    </div>
+    <div class="flist">
+      <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Mês 1:</strong> Implementação completa de toda a infraestrutura de tracking</div></div>
+      <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Meses seguintes:</strong> Gestão ativa, manutenção preventiva e corretiva contínua</div></div>
+      <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Garantia de fluxo:</strong> dados chegando às plataformas sem interrupções</div></div>
+      <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Toda infraestrutura <strong>100% nas suas contas</strong> — você é dono de tudo</div></div>
+    </div>
+  </div>
+</div>
 
-            if (n >= totalSlides) currentSlide = 0;
-            if (n < 0) currentSlide = totalSlides - 1;
+</div><!-- #stage -->
 
-            slides[currentSlide].classList.add('active');
-            document.getElementById('current').textContent = currentSlide + 1;
-        }
+<!-- NAVIGATION -->
+<div id="nav">
+  <button class="nb" onclick="go(-1)">&#9664;</button>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:7px">
+    <div class="dots" id="dots"></div>
+    <div id="num"></div>
+  </div>
+  <button class="nb" onclick="go(1)">&#9654;</button>
+</div>
 
-        function nextSlide() {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-
-        function previousSlide() {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') previousSlide();
-        });
-
-        // Show initial slide
-        showSlide(currentSlide);
-    </script>
+<script>
+let cur=0;
+const slides=document.querySelectorAll('.slide');
+const N=slides.length;
+const dotsEl=document.getElementById('dots');
+const numEl=document.getElementById('num');
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>goTo(i);dotsEl.appendChild(d);});
+function goTo(n){
+  slides[cur].classList.remove('active');
+  document.querySelectorAll('.dot')[cur].classList.remove('on');
+  cur=((n%N)+N)%N;
+  slides[cur].classList.add('active','in');
+  setTimeout(()=>slides[cur].classList.remove('in'),400);
+  document.querySelectorAll('.dot')[cur].classList.add('on');
+  numEl.textContent=(cur+1)+' / '+N;
+}
+function go(d){goTo(cur+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50)go(d>0?1:-1);});
+function scale(){
+  const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+  const st=document.getElementById('stage');
+  st.style.transform='scale('+s+')';
+  st.style.left=((window.innerWidth-1280*s)/2)+'px';
+  st.style.top=((window.innerHeight-720*s)/2)+'px';
+}
+window.addEventListener('resize',scale);scale();
+numEl.textContent='1 / '+N;
+</script>
 </body>
 </html>
