@@ -92,13 +92,15 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 .pc-s{font-size:12px;color:rgba(255,255,255,.5);line-height:1.4;}
 .pc-pct{margin-left:auto;font-size:22px;font-weight:800;color:#f87171;flex-shrink:0;}
 
-.funnel-title{font-size:17px;font-weight:700;color:var(--text);text-align:center;}
+.funnel-title{font-size:13px;font-weight:700;color:var(--primary);text-align:center;
+  text-transform:uppercase;letter-spacing:.13em;background:#eff6ff;
+  padding:6px 18px;border-radius:20px;border:1px solid #bfdbfe;display:inline-block;}
 .impact{background:#fff;border-radius:12px;padding:18px 28px;
   border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(0,0,0,.06);
   text-align:center;width:100%;max-width:420px;}
 .impact-v{font-size:52px;font-weight:800;color:var(--red);line-height:1;}
-.impact-l{font-size:14px;color:#64748b;margin-top:5px;}
-.impact-s{font-size:12px;color:#94a3b8;margin-top:3px;}
+.impact-l{font-size:15px;font-weight:700;color:#0f172a;margin-top:8px;}
+.impact-s{font-size:12px;color:#475569;margin-top:4px;}
 
 /* ════════════════════════════════════════
    SLIDE 2 — SOLUÇÃO
@@ -110,7 +112,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 .a-box{border-radius:12px;padding:16px 20px;text-align:center;min-width:148px;}
 .a-box-icon{font-size:26px;margin-bottom:5px;}
 .a-box-t{font-size:14px;font-weight:700;}
-.a-box-s{font-size:11px;color:#64748b;margin-top:2px;}
+.a-box-s{font-size:11px;color:#374151;margin-top:2px;}
 .a-browser{background:#eff6ff;border:2px solid #bfdbfe;}
 .a-browser .a-box-t{color:#1d4ed8;}
 .a-gtm{background:#fff7ed;border:2px solid #fed7aa;}
@@ -131,7 +133,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 .guarantee{margin-top:22px;padding:16px 22px;background:#eff6ff;border-radius:10px;
   border-left:4px solid var(--blue);display:flex;align-items:center;gap:14px;}
 .guarantee-t{font-size:13px;font-weight:700;color:var(--primary);}
-.guarantee-s{font-size:12px;color:#64748b;margin-top:2px;}
+.guarantee-s{font-size:12px;color:#1e3a8a;margin-top:2px;}
 
 /* ════════════════════════════════════════
    SLIDE 3 — RESULTADOS
@@ -232,6 +234,34 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
   text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
 .s4-price-value{font-size:44px;font-weight:800;color:#22c55e;line-height:1;}
 .s4-price-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:5px;}
+
+/* ════════════════════════════════════════
+   SLIDE 6 — CONTATO
+════════════════════════════════════════ */
+.s6{background:linear-gradient(135deg,#080f1e 0%,#0d2a5c 55%,#1e3a8a 100%);
+  align-items:center;justify-content:center;}
+.s6-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:32px;
+  max-width:920px;padding:60px;}
+.s6-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#93c5fd;background:rgba(59,130,246,.18);
+  padding:5px 14px;border-radius:4px;border:1px solid rgba(59,130,246,.3);}
+.s6-headline{font-size:50px;font-weight:800;color:#fff;line-height:1.12;}
+.s6-headline span{color:#60a5fa;}
+.s6-sub{font-size:18px;color:rgba(255,255,255,.5);line-height:1.6;max-width:540px;}
+.s6-cards{display:flex;gap:22px;}
+.s6-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;padding:26px 40px;display:flex;flex-direction:column;
+  align-items:center;gap:7px;min-width:250px;}
+.s6-card-icon{font-size:30px;}
+.s6-card-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.4);
+  text-transform:uppercase;letter-spacing:.12em;}
+.s6-card-value{font-size:19px;font-weight:700;color:#fff;}
+.s6-sig{display:flex;align-items:center;gap:14px;margin-top:4px;}
+.s6-avatar{width:50px;height:50px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(96,165,250,.4);}
+.s6-avatar img{width:100%;height:100%;object-fit:cover;}
+.s6-sig-name{font-size:15px;font-weight:700;color:#fff;text-align:left;}
+.s6-sig-role{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px;text-align:left;}
 
 /* ════════════════════════════════════════
    SLIDE 5 — OPÇÃO B
@@ -369,7 +399,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
   <div class="slide-header" style="margin-bottom:28px">
     <div class="label" style="color:var(--blue)">02 — A Solução</div>
     <div class="slide-h1-dark">Infraestrutura de Server-Side Tracking</div>
-    <p class="body-dark" style="max-width:620px">Não apenas um pixel — uma arquitetura completa que garante que <strong>nenhum evento seja perdido</strong>, enviando dados enriquecidos direto das suas contas para os algoritmos.</p>
+    <p class="body-dark" style="max-width:620px;color:#0f172a">O GTM Server captura os eventos <strong>diretamente no servidor</strong>, não no browser. Ad blockers, iOS e cookies de terceiros não interferem. Meta, Google e GA4 recebem dados completos — o algoritmo finalmente vê o quadro inteiro.</p>
   </div>
 
   <!-- Architecture diagram — single SVG for pixel-perfect alignment -->
@@ -390,7 +420,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <!-- Arrow ① → ② -->
     <line x1="158" y1="120" x2="218" y2="120" stroke="#cbd5e1" stroke-width="2"/>
     <polygon points="218,114 228,120 218,126" fill="#cbd5e1"/>
-    <text x="193" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">cliques</text>
+    <text x="193" y="110" text-anchor="middle" font-size="10" fill="#475569">Eventos</text>
 
     <!-- ② GTM WEB — center y=120 -->
     <rect x="228" y="75" width="148" height="90" rx="12" fill="#fff7ed" stroke="#fed7aa" stroke-width="2"/>
@@ -401,7 +431,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <!-- Arrow ② → ③ -->
     <line x1="376" y1="120" x2="436" y2="120" stroke="#cbd5e1" stroke-width="2"/>
     <polygon points="436,114 446,120 436,126" fill="#cbd5e1"/>
-    <text x="411" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">processa</text>
+    <text x="411" y="110" text-anchor="middle" font-size="10" fill="#475569">Processa</text>
 
     <!-- ③ GTM SERVER — center y=120 -->
     <rect x="446" y="70" width="188" height="100" rx="12" fill="url(#sg)"/>
@@ -418,7 +448,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
 
     <!-- Arrow ③ → fan-out, y=120 -->
     <line x1="634" y1="120" x2="694" y2="120" stroke="#cbd5e1" stroke-width="2"/>
-    <text x="664" y="110" text-anchor="middle" font-size="10" fill="#94a3b8">envia</text>
+    <text x="664" y="110" text-anchor="middle" font-size="10" fill="#475569">Envia</text>
 
     <!-- Fan-out vertical connector at x=694 -->
     <!-- Platform centers: Meta y=47, Google y=120, GA4 y=193 -->
@@ -513,12 +543,12 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
               <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
             </linearGradient>
           </defs>
-          <path d="M0,38 C40,36 80,28 120,18 C155,10 178,7 200,4 L200,44 L0,44 Z" fill="url(#gcpa)"/>
-          <path d="M0,38 C40,36 80,28 120,18 C155,10 178,7 200,4" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="0" cy="38" r="3.5" fill="rgba(239,68,68,.7)"/>
-          <circle cx="200" cy="4" r="3.5" fill="#22c55e"/>
-          <text x="4" y="34" font-size="8" fill="rgba(255,255,255,.35)">Antes</text>
-          <text x="164" y="14" font-size="8" fill="#4ade80">Depois</text>
+          <path d="M0,5 C40,8 80,18 120,30 C155,37 178,40 200,42 L200,0 L0,0 Z" fill="rgba(34,197,94,.08)"/>
+          <path d="M0,5 C40,8 80,18 120,30 C155,37 178,40 200,42" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="0" cy="5" r="3.5" fill="rgba(239,68,68,.7)"/>
+          <circle cx="200" cy="42" r="3.5" fill="#22c55e"/>
+          <text x="8" y="16" font-size="8" fill="rgba(255,255,255,.45)">Antes</text>
+          <text x="157" y="40" font-size="8" fill="#4ade80">Depois</text>
         </svg>
         <div class="trend-note">Algoritmo alimentado com dados melhores tende a gastar menos para converter</div>
       </div>
@@ -605,7 +635,7 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
         <span class="p-amt">1.500</span>
         <span class="p-per">/mês</span>
       </div>
-      <div class="p-desc">Investimento mensal · Fidelidade de 6 a 12 meses · Custos da plataforma Stape repassados diretamente</div>
+      <div class="p-desc">Investimento mensal · Fidelidade de 6 a 12 meses</div>
     </div>
     <div class="info-tags">
       <div class="itag">📅 Contrato: 6–12 meses</div>
@@ -617,6 +647,35 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
       <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Meses seguintes:</strong> Gestão ativa, manutenção preventiva e corretiva contínua</div></div>
       <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext"><strong>Garantia de fluxo:</strong> dados chegando às plataformas sem interrupções</div></div>
       <div class="fi"><div class="fcheck s5-fcheck"><svg viewBox="0 0 11 11" fill="none"><path d="M2 5.5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="ftext">Toda infraestrutura <strong>100% nas suas contas</strong> — você é dono de tudo</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ SLIDE 6: CONTATO ══════════════════════════════════ -->
+<div class="slide s6">
+  <div class="s6-inner">
+    <div class="s6-tag">Próximo passo</div>
+    <h2 class="s6-headline">Pronto para ter dados<br>completos nas suas <span>campanhas</span>?</h2>
+    <p class="s6-sub">Entre em contato e vamos estruturar o trackeamento do seu negócio.</p>
+    <div class="s6-cards">
+      <div class="s6-card">
+        <div class="s6-card-icon">✉️</div>
+        <div class="s6-card-label">E-mail</div>
+        <div class="s6-card-value">adsvinisousa@gmail.com</div>
+      </div>
+      <div class="s6-card">
+        <div class="s6-card-icon">📱</div>
+        <div class="s6-card-label">WhatsApp</div>
+        <div class="s6-card-value">(35) 9 9836-9983</div>
+      </div>
+    </div>
+    <div class="s6-sig">
+      <div class="s6-avatar"><img src="https://github.com/vinidevai.png" alt="Vinicius Sousa"></div>
+      <div>
+        <div class="s6-sig-name">Vinicius Sousa</div>
+        <div class="s6-sig-role">Desenvolvedor de Trackeamento · Gestor de Tráfego</div>
+      </div>
     </div>
   </div>
 </div>
