@@ -515,32 +515,34 @@ body{background:#06101e;display:flex;align-items:center;justify-content:center;
     <line x1="550" y1="150" x2="608" y2="150" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6,4"/>
     <text x="579" y="141" text-anchor="middle" font-size="9" fill="#cbd5e1">envia</text>
 
-    <!-- FAN: barra vertical + ramos — mesmo traço azul do fluxo principal -->
-    <line x1="608" y1="75"  x2="608" y2="275" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
-    <line x1="608" y1="75"  x2="628" y2="75"  stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
-    <line x1="608" y1="175" x2="628" y2="175" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
-    <line x1="608" y1="275" x2="628" y2="275" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <!-- FAN: barra x=608 de y=70 a y=230 — centro=150 = alinhado com GTM Server cy -->
+    <line x1="608" y1="70"  x2="608" y2="230" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <line x1="608" y1="70"  x2="628" y2="70"  stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <line x1="608" y1="150" x2="628" y2="150" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <line x1="608" y1="230" x2="628" y2="230" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <!-- ponto de junção onde "envia" encontra a barra -->
+    <circle cx="608" cy="150" r="3.5" fill="#3b82f6"/>
 
-    <!-- ④ META CAPI — x=628 y=45 w=436 h=60  cy=75 -->
-    <rect x="628" y="45"  width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
-    <rect x="628" y="45"  width="4"   height="60" rx="2" fill="#0081fb"/>
-    <image href="https://cdn.simpleicons.org/meta/0081fb" x="640" y="65" width="20" height="20"/>
-    <text x="669" y="73" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">Meta CAPI</text>
-    <text x="669" y="87" text-anchor="start" font-size="10" fill="#94a3b8">Facebook / Instagram</text>
+    <!-- ④ META CAPI — x=628 y=40 w=436 h=60  cy=70 -->
+    <rect x="628" y="40"  width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
+    <rect x="628" y="40"  width="4"   height="60" rx="2" fill="#0081fb"/>
+    <image href="https://cdn.simpleicons.org/meta/0081fb" x="640" y="60" width="20" height="20"/>
+    <text x="669" y="68" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">Meta CAPI</text>
+    <text x="669" y="82" text-anchor="start" font-size="10" fill="#94a3b8">Facebook / Instagram</text>
 
-    <!-- ④ GOOGLE ADS — x=628 y=145 w=436 h=60  cy=175 -->
-    <rect x="628" y="145" width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
-    <rect x="628" y="145" width="4"   height="60" rx="2" fill="#4285f4"/>
-    <image href="https://cdn.simpleicons.org/googleads/4285f4" x="640" y="165" width="20" height="20"/>
-    <text x="669" y="173" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">Google Ads</text>
-    <text x="669" y="187" text-anchor="start" font-size="10" fill="#94a3b8">Enhanced Conversions</text>
+    <!-- ④ GOOGLE ADS — x=628 y=120 w=436 h=60  cy=150 (branch alinhado com envia) -->
+    <rect x="628" y="120" width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
+    <rect x="628" y="120" width="4"   height="60" rx="2" fill="#4285f4"/>
+    <image href="https://cdn.simpleicons.org/googleads/4285f4" x="640" y="140" width="20" height="20"/>
+    <text x="669" y="148" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">Google Ads</text>
+    <text x="669" y="162" text-anchor="start" font-size="10" fill="#94a3b8">Enhanced Conversions</text>
 
-    <!-- ④ GA4 — x=628 y=245 w=436 h=60  cy=275 -->
-    <rect x="628" y="245" width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
-    <rect x="628" y="245" width="4"   height="60" rx="2" fill="#e37400"/>
-    <image href="https://cdn.simpleicons.org/googleanalytics/e37400" x="640" y="265" width="20" height="20"/>
-    <text x="669" y="273" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">GA4</text>
-    <text x="669" y="287" text-anchor="start" font-size="10" fill="#94a3b8">Analytics Server</text>
+    <!-- ④ GA4 — x=628 y=200 w=436 h=60  cy=230 -->
+    <rect x="628" y="200" width="436" height="60" rx="9" fill="#1e293b" stroke="rgba(148,163,184,.18)" stroke-width="1.5"/>
+    <rect x="628" y="200" width="4"   height="60" rx="2" fill="#e37400"/>
+    <image href="https://cdn.simpleicons.org/googleanalytics/e37400" x="640" y="220" width="20" height="20"/>
+    <text x="669" y="228" text-anchor="start" font-size="12" font-weight="700" fill="#f1f5f9">GA4</text>
+    <text x="669" y="242" text-anchor="start" font-size="10" fill="#94a3b8">Analytics Server</text>
   </svg>
 
   <div class="guarantee">
